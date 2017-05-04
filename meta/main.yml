@@ -1,0 +1,14 @@
+dependencies: []
+galaxy_info:
+  author: lmickh
+  description: Run Prometheus node-exporter as Docker container.
+  license: MIT
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  galaxy_tags:
+    - metrics
+    - monitoring
+    - prometheus

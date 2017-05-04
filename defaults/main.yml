@@ -1,0 +1,8 @@
+---
+node_exporter_args:
+  - '-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"'
+  - '-web.listen-address=0.0.0.0:9100'
+  - '-log.level=info'
+  - '-collectors.enabled=conntrack,diskstats,entropy,filefd,filesystem,loadavg,mdadm,meminfo,netdev,netstat,stat,textfile,time,vmstat'
+node_exporter_image: quay.io/prometheus/node-exporter:v0.14.0
+node_exporter_service_name: "node-exporter"

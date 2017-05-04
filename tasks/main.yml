@@ -1,0 +1,40 @@
+---
+- name: Create node-exporter container
+  become: true
+  docker_container:
+    name: "{{ node_exporter_service_name }}"
+    command: "{{ node_exporter_args }}"
+    detach: true
+    image: "{{ node_exporter_image }}"
+    network_mode: host
+    ports:
+      - "9100:9100"
+    volumes:
+      - "/proc:/host/proc"
+      - "/sys:/host/sys"
+      - "/:/rootfs"
+  register: node_exporter_service_config
+
+- name: Create node-exporter service file
+  become: true
+  template:
+    dest: "/etc/systemd/system/{{ node_exporter_service_name }}.service"
+    src: "templates/node-exporter.service.j2"
+    mode: 0664
+  register: node_exporter_service_config
+  when: ansible_service_mgr == 'systemd'
+
+- name: Restart node-exporter service
+  become: true
+  systemd:
+    name: "{{ node_exporter_service_name }}.service"
+    daemon_reload: yes
+    state: restarted
+  when: node_exporter_service_config.changed
+
+- name: Enable node-exporter service
+  become: true
+  service:
+    name: "{{ node_exporter_service_name }}.service"
+    state: started
+    enabled: yes
