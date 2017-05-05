@@ -9,6 +9,7 @@
     network_mode: host
     ports:
       - "9100:9100"
+    state: present
     volumes:
       - "/proc:/host/proc"
       - "/sys:/host/sys"
