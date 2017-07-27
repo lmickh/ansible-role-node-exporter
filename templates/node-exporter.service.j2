@@ -7,6 +7,8 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStart=/usr/bin/docker start -a {{ node_exporter_service_name }}
 ExecStop=/usr/bin/docker stop -t 15 {{ node_exporter_service_name }}
+Restart={{ node_exporter_restart }}
+RestartSec={{ node_exporter_restart_sec }}
 
 [Install]
 WantedBy=multi-user.target

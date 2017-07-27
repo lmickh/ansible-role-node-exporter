@@ -5,4 +5,6 @@ node_exporter_args:
   - '-log.level=info'
   - '-collectors.enabled=conntrack,diskstats,entropy,filefd,filesystem,loadavg,mdadm,meminfo,netdev,netstat,stat,textfile,time,vmstat'
 node_exporter_image: quay.io/prometheus/node-exporter:v0.14.0
+node_exporter_restart: "on-failure"
+node_exporter_restart_sec: "15"
 node_exporter_service_name: "node-exporter"
