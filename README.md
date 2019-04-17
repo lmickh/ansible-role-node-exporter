@@ -1,4 +1,4 @@
-Role Name
+node-exporter
 =========
 
 Creates a systemd service to run the Prometheus node-exporter as a Docker container.
@@ -28,6 +28,11 @@ Example Playbook
         - { role: lmickh.node-exporter }
       tags:
         - node-exporter
+
+TODO
+----
+
+- [ ] Add systemd support
 
 License
 -------

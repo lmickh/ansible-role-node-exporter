@@ -1,10 +1,13 @@
 ---
 node_exporter_args:
-  - '-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"'
-  - '-web.listen-address=0.0.0.0:9100'
-  - '-log.level=info'
-  - '-collectors.enabled=conntrack,diskstats,entropy,filefd,filesystem,loadavg,mdadm,meminfo,netdev,netstat,stat,textfile,time,vmstat'
-node_exporter_image: quay.io/prometheus/node-exporter:v0.14.0
+  - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"'
+  - '--collector.diskstats.ignored-devices=^(ram|loop|fd)d+$'
+  - '--web.listen-address=0.0.0.0:9100'
+  - '--log.level=info'
+  - '--collector.processes'
+  - '--path.rootfs /host'
+  # - '--collector.systemd'
+node_exporter_image: quay.io/prometheus/node-exporter:v0.17.0
 node_exporter_restart: "on-failure"
 node_exporter_restart_sec: "15"
 node_exporter_service_name: "node-exporter"

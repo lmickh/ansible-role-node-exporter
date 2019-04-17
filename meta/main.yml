@@ -3,11 +3,17 @@ galaxy_info:
   author: lmickh
   description: Run Prometheus node-exporter as Docker container.
   license: MIT
-  min_ansible_version: 2.2
+  min_ansible_version: 2.4
   platforms:
     - name: EL
       versions:
         - 7
+    - name: Debian
+      versions:
+        - stretch
+    - name: Ubuntu
+      versions:
+        - bionic
   galaxy_tags:
     - metrics
     - monitoring

@@ -3,18 +3,20 @@
   become: true
   docker_container:
     name: "{{ node_exporter_service_name }}"
+    capabilities:
+      - sys_time
     command: "{{ node_exporter_args }}"
     detach: true
     image: "{{ node_exporter_image }}"
     network_mode: host
+    pid_mode: host
     ports:
       - "9100:9100"
     state: present
     volumes:
-      - "/proc:/host/proc"
-      - "/sys:/host/sys"
-      - "/:/rootfs"
-  register: node_exporter_service_config
+      - "/:/host:ro,rslave"
+      # - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro"
+  notify: restart node-exporter
 
 - name: Create node-exporter service file
   become: true
@@ -22,16 +24,7 @@
     dest: "/etc/systemd/system/{{ node_exporter_service_name }}.service"
     src: "templates/node-exporter.service.j2"
     mode: 0664
-  register: node_exporter_service_config
-  when: ansible_service_mgr == 'systemd'
-
-- name: Restart node-exporter service
-  become: true
-  systemd:
-    name: "{{ node_exporter_service_name }}.service"
-    daemon_reload: yes
-    state: restarted
-  when: node_exporter_service_config.changed
+  notify: restart node-exporter
 
 - name: Enable node-exporter service
   become: true
