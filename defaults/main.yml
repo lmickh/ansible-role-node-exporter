@@ -7,7 +7,7 @@ node_exporter_args:
   - '--collector.processes'
   - '--path.rootfs /host'
   # - '--collector.systemd'
-node_exporter_image: quay.io/prometheus/node-exporter:v0.17.0
+node_exporter_image: quay.io/prometheus/node-exporter:v0.18.1
 node_exporter_restart: "on-failure"
 node_exporter_restart_sec: "15"
 node_exporter_service_name: "node-exporter"
